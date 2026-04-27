@@ -262,7 +262,7 @@ async function parseCsv(text: string, fileName: string): Promise<ParseResult> {
 
         resolve({ success: true, records, fileName, totalRows: dataRows.length });
       },
-      error: (err) => {
+      error: (err: Error) => {
         resolve({
           success: false,
           records: [],
