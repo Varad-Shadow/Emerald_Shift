@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@700;800;900&display=swap');
+@import "tailwindcss";
+
+/* ============================================================
+   GLOBAL BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background: #F8FAFC;
+  color: #0f172a;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+.page-content {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 56px 32px 96px;
+}
+
+/* Hero centered text */
+.hero-section {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.hero-section h1,
+.hero-section p,
+.hero-section div {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================
+   AMBIENT BACKGROUND ORBS  (soft, light-theme)
+   ============================================================ */
+.orb {
+  position: fixed; border-radius: 50%; filter: blur(120px);
+  pointer-events: none; z-index: 0;
+}
+.orb-1 {
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 70%);
+  top: -200px; left: -200px;
+  animation: orb-drift 14s ease-in-out infinite;
+}
+.orb-2 {
+  width: 550px; height: 550px;
+  background: radial-gradient(circle, rgba(5,150,105,0.05) 0%, transparent 70%);
+  bottom: -100px; right: -100px;
+  animation: orb-drift 18s ease-in-out infinite reverse;
+}
+.orb-3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(52,211,153,0.04) 0%, transparent 70%);
+  top: 45%; left: 55%;
+  animation: orb-drift 22s ease-in-out infinite 5s;
+}
+@keyframes orb-drift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(30px,-40px) scale(1.06); }
+  66%      { transform: translate(-20px,25px) scale(0.95); }
+}
+
+/* ============================================================
+   SECTION DIVIDER
+   ============================================================ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16,185,129,0.2), transparent);
+  margin: 48px 0 36px;
+}
+
+/* ============================================================
+   STAT BADGE  (hero eyebrow pill)
+   ============================================================ */
+.stat-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 18px;
+  background: rgba(16,185,129,0.07);
+  border: 1px solid rgba(16,185,129,0.18);
+  border-radius: 100px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+  color: #059669;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   DROP ZONE  —  LIGHT THEME
+   ============================================================ */
+.drop-zone {
+  border: 2px dashed rgba(16,185,129,0.28);
+  border-radius: 2.5rem;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: border-color 0.35s, box-shadow 0.35s, background 0.35s;
+  text-align: center;
+  /* Centering */
+  display: block;
+  width: 100%;
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.drop-zone::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 110%, rgba(16,185,129,0.05) 0%, transparent 70%);
+  opacity: 0; transition: opacity 0.35s;
+  pointer-events: none;
+}
+.drop-zone:hover::before, .drop-zone.dz-over::before { opacity: 1; }
+.drop-zone:hover {
+  border-color: rgba(16,185,129,0.5);
+  box-shadow: 0 0 0 4px rgba(16,185,129,0.06), 0 8px 32px rgba(16,185,129,0.08);
+}
+.drop-zone.dz-over {
+  border-color: #10b981;
+  background: rgba(16,185,129,0.04);
+  box-shadow: 0 0 0 4px rgba(16,185,129,0.1), 0 12px 40px rgba(16,185,129,0.12);
+}
+
+/* Success compact state */
+.drop-zone.dz-success {
+  border-style: solid;
+  border-color: rgba(52,211,153,0.4);
+  background: rgba(52,211,153,0.04);
+  padding: 20px 28px;
+  border-radius: 1.25rem;
+}
+
+/* Drop zone icon wrapper */
+.dz-icon-wrap {
+  width: 80px; height: 80px; border-radius: 24px; margin: 0 auto 20px;
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.18);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.drop-zone:hover .dz-icon-wrap {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(16,185,129,0.18);
+}
+
+/* Drop zone text */
+.dz-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px; font-weight: 700;
+  color: #1e3a2a;
+  margin-bottom: 8px;
+}
+.dz-sub {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+.dz-sub span { color: #059669; font-weight: 500; }
+
+/* Extension tags */
+.dz-ext-tags { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
+.dz-ext {
+  padding: 5px 14px;
+  background: rgba(16,185,129,0.07);
+  border: 1px solid rgba(16,185,129,0.18);
+  border-radius: 100px;
+  font-size: 11px; font-weight: 700; color: #059669;
+  letter-spacing: 0.06em;
+}
+
+/* Success row */
+.dz-success-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+}
+.dz-file-info { display: flex; align-items: center; gap: 12px; }
+.dz-file-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.25);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.dz-file-name  { font-weight: 700; font-size: 14px; color: #1e3a2a; }
+.dz-file-label { font-size: 11px; color: #059669; font-weight: 600; margin-top: 2px; }
+
+/* Spinner */
+.spin {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid rgba(16,185,129,0.15);
+  border-top-color: #10b981;
+  animation: spin 0.75s linear infinite;
+  margin: 0 auto 20px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   ERROR BANNER  —  LIGHT THEME
+   ============================================================ */
+.err-banner {
+  margin-top: 16px;
+  background: rgba(254,226,226,0.6);
+  border: 1px solid rgba(252,165,165,0.5);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.err-title { font-size: 13px; font-weight: 700; color: #b91c1c; }
+.err-body  { font-size: 12px; color: #dc2626; opacity: 0.8; margin-top: 3px; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-ghost {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+.btn-ghost:hover { background: #f8fafc; color: #334155; border-color: #cbd5e1; }
+
+.btn-emerald {
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.25);
+  color: #059669;
+}
+.btn-emerald:hover { background: rgba(16,185,129,0.14); border-color: rgba(16,185,129,0.45); transform: translateY(-1px); }
+
+.btn-solid {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+}
+.btn-solid:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(16,185,129,0.45); }
+
+.btn-danger {
+  background: rgba(254,226,226,0.7);
+  border: 1px solid rgba(252,165,165,0.5);
+  color: #dc2626;
+}
+.btn-danger:hover { background: rgba(254,202,202,0.8); border-color: rgba(248,113,113,0.6); }
+
+/* ============================================================
+   SCROLLBAR  —  LIGHT THEME
+   ============================================================ */
+::-webkit-scrollbar              { width: 5px; }
+::-webkit-scrollbar-track        { background: rgba(0,0,0,0.02); }
+::-webkit-scrollbar-thumb        { background: rgba(16,185,129,0.22); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover  { background: rgba(16,185,129,0.4); }
+
+/* ============================================================
+   TOAST  (light-theme glass pill)
+   ============================================================ */
+.toast-wrap {
+  position: fixed; bottom: 28px; left: 50%; z-index: 9999;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.toast-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 24px;
+  background: rgba(16,185,129,0.95);
+  border: 1px solid rgba(52,211,153,0.4);
+  border-radius: 100px;
+  color: #fff; font-size: 13px; font-weight: 600;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 8px 32px rgba(16,185,129,0.35), 0 2px 8px rgba(0,0,0,0.08);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .dz-success-row { flex-direction: column; align-items: flex-start; }
+}
